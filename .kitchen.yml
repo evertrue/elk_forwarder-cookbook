@@ -21,3 +21,8 @@ suites:
             servers:
               - test-server
               - test-server-2
+          files:
+            - paths:
+                - /var/log/syslog
+            - fields:
+                type: syslog
