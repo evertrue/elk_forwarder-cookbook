@@ -64,6 +64,15 @@ end
 include_recipe 'elk_forwarder::default'
 ```
 
+### Certificates
+
+Generating and distributing SSL Certificates is out of scope for this cookbook. Your wrapper cookbook will
+need to configure the SSL Certificates and Keys.  See the
+[Certificate Notes](https://github.com/elastic/logstash-forwarder#important-tlsssl-certificate-notes)
+on the logstash forwarder repo for help.
+
+You can tweet the Certificate locations in the `[elk_forwarder]['config']['network']['ssl *']` attributes
+
 ## Contributing
 
 1. Fork the repository on Github
