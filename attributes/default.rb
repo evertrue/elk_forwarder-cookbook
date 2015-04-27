@@ -14,24 +14,24 @@ default['elk_forwarder']['install_dir'] = '/opt/logstash-forwarder'
 # A list of downstream servers listening for our messages.
 # logstash-forwarder will pick one at random and only switch if
 # the selected one appears to be dead or unresponsive
-default['elk_forwarder']['config']['servers'] = []
+default['elk_forwarder']['config']['network']['servers'] = []
 
 # The path to your client ssl certificate (optional)
-default['elk_forwarder']['config']['ssl certificate'] = '/etc/logstash-forwarder/logstash-forwarder.crt'
+default['elk_forwarder']['config']['network']['ssl certificate'] = '/etc/logstash-forwarder/logstash-forwarder.crt'
 
 # The path to your client ssl key (optional)
-default['elk_forwarder']['config']['ssl key'] = '/etc/logstash-forwarder/logstash-forwarder.key'
+default['elk_forwarder']['config']['network']['ssl key'] = '/etc/logstash-forwarder/logstash-forwarder.key'
 
 # The path to your trusted ssl CA file. This is used
 # to authenticate your downstream server.
-default['elk_forwarder']['config']['ssl ca'] = '/etc/logstash-forwarder/logstash-forwarder.crt'
+default['elk_forwarder']['config']['network']['ssl ca'] = '/etc/logstash-forwarder/logstash-forwarder.crt'
 
 # Network timeout in seconds. This is most important for
 # logstash-forwarder determining whether to stop waiting for an
 # acknowledgement from the downstream server. If an timeout is reached,
 # logstash-forwarder will assume the connection or server is bad and
 # will connect to a server chosen at random from the servers list.
-default['elk_forwarder']['config']['timeout'] = 15
+default['elk_forwarder']['config']['network']['timeout'] = 15
 
 # The list of files configurations
 # An array of hashes. Each hash tells what paths to watch and

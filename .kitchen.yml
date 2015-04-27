@@ -15,3 +15,9 @@ suites:
       - recipe[apt]
       - recipe[elk_forwarder::default]
     attributes:
+      elk_forwarder:
+        config:
+          network:
+            servers:
+              - test-server
+              - test-server-2
