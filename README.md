@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/evertrue/elk_forwarder-cookbook.svg)](https://travis-ci.org/evertrue/elk_forwarder-cookbook)
 
-TODO: Enter the cookbook description here.
+Installs and configures the [logstash-forwarder]() to forward specified logs to specified servers
 
 # Requirements
 
@@ -10,33 +10,57 @@ TODO: Enter the cookbook description here.
 * `some` cookbook
 * `another` cookbook
 
+# LWRPs
+
+## elk_forwarder_log
+
+Configures the forwarder to monitor the specified files
+
+### Usage
+
+```
+elk_forwarder_log 'apache error logs' do
+    files ['/var/log/apache2/error.log']
+    fields type: 'apache2', otherfield: 'othervalue'
+end
+```
 
 # Recipes
 
 ## default
 
-Short Description
+Installs and configures the logstash-forwarder
 
-1. Set up & updates apt using `apt::default`
-2. Install xyz by some proccess
-3. Include various recipes for this cookbook:
-    * `elk_forwarder::install`
-        - which includes `elk_forwarder::another`
+1. Install logstash-forwarder using the `_source` or `_package` recipes
+2. Include various recipes for this cookbook:
     * `elk_forwarder::configure`
 
-## install
+## configure
 
-More info about the install recipe
+Configures the forwarder with the `['elk_forwarder']['config']` hash
+
+1. Creates the config file: `#{node['elk_forwarder']['config_dir']}/logstash-forwarder.conf`
 
 # Usage
 
 Include this recipe in a wrapper cookbook:
 
+metadata.rb
+
 ```
 depends 'elk_forwarder', '~> 1.0'
 ```
 
+your_recipe.rb
+
 ```
+elk_forwarder_log 'apache error logs' do
+    files ['/var/log/apache2/error.log']
+    fields type: 'apache2', otherfield: 'othervalue'
+end
+
+...
+
 include_recipe 'elk_forwarder::default'
 ```
 
