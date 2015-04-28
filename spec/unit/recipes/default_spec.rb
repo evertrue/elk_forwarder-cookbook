@@ -13,6 +13,7 @@ describe 'elk_forwarder::default' do
       runner.converge(described_recipe)
     end
     it 'converges successfully' do
+      stub_command("/usr/local/go/bin/go version | grep \"go1.3 \"").and_return(true)
       chef_run # This should not raise an error
     end
   end
