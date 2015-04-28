@@ -17,14 +17,14 @@ default['elk_forwarder']['install_dir'] = '/opt/logstash-forwarder'
 default['elk_forwarder']['config']['network']['servers'] = []
 
 # The path to your client ssl certificate (optional)
-default['elk_forwarder']['config']['network']['ssl certificate'] = '/etc/logstash-forwarder/logstash-forwarder.crt'
+default['elk_forwarder']['config']['network']['ssl certificate'] = ''
 
 # The path to your client ssl key (optional)
-default['elk_forwarder']['config']['network']['ssl key'] = '/etc/logstash-forwarder/logstash-forwarder.key'
+default['elk_forwarder']['config']['network']['ssl key'] = ''
 
 # The path to your trusted ssl CA file. This is used
 # to authenticate your downstream server.
-default['elk_forwarder']['config']['network']['ssl ca'] = '/etc/logstash-forwarder/logstash-forwarder.crt'
+default['elk_forwarder']['config']['network']['ssl ca'] = ''
 
 # Network timeout in seconds. This is most important for
 # logstash-forwarder determining whether to stop waiting for an
