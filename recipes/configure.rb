@@ -1,4 +1,10 @@
 
+['ssl certificate', 'ssl key', 'ssl ca'].each do |att|
+  if node['elk_forwarder']['config']['network'][att].empty?
+    fail "Please set node['elk_forwarder']['config']['network']['#{att}']"
+  end
+end
+
 directory node['elk_forwarder']['config_dir'] do
   user node['elk_forwarder']['user']
   group node['elk_forwarder']['group']
