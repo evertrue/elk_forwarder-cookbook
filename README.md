@@ -1,6 +1,4 @@
-# elk_forwarder
-
-[![Build Status](https://travis-ci.org/evertrue/elk_forwarder-cookbook.svg)](https://travis-ci.org/evertrue/elk_forwarder-cookbook)
+# elk_forwarder [![Build Status](https://travis-ci.org/evertrue/elk_forwarder-cookbook.svg)](https://travis-ci.org/evertrue/elk_forwarder-cookbook)
 
 Installs and configures the [logstash-forwarder](https://github.com/elastic/logstash-forwarder) to forward specified logs to specified servers
 
