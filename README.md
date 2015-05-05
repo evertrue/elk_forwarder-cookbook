@@ -4,9 +4,7 @@ Installs and configures the [logstash-forwarder](https://github.com/elastic/logs
 
 # Requirements
 
-* `apt` cookbook
-* `some` cookbook
-* `another` cookbook
+* `golang` cookbook
 
 # LWRPs
 
