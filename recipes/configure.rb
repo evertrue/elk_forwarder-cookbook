@@ -1,8 +1,19 @@
+#
+# Cookbook Name:: elk_forwarder
+# Recipe:: default
+#
+# Copyright (c) 2015 EverTrue, inc., All Rights Reserved.
 
-['ssl certificate', 'ssl key', 'ssl ca'].each do |att|
-  if node['elk_forwarder']['config']['network'][att].empty?
-    fail "Please set node['elk_forwarder']['config']['network']['#{att}']"
+ruby_block 'Verify that the ssl files exist' do
+  block do
+    %w(ca cert key).each do |c|
+      file = node['elk_forwarder']['config']['network']["ssl #{c}"]
+      if file && !File.exist?(file)
+        fail "The ssl #{c} file is configured but does not exist: #{file}"
+      end
+    end
   end
+  action :run
 end
 
 directory node['elk_forwarder']['config_dir'] do
