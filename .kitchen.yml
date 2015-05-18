@@ -1,6 +1,8 @@
 ---
 driver:
   name: vagrant
+  network:
+    - [ 'private_network', {ip: '192.168.33.11'}]
 
 provisioner:
   name: chef_zero
@@ -13,14 +15,15 @@ suites:
   - name: default
     run_list:
       - recipe[apt]
+      - recipe[elk_forwarder::certs]
       - recipe[elk_forwarder::default]
     attributes:
       elk_forwarder:
+        mocking: true
         config:
           network:
             servers:
-              - test-server
-              - test-server-2
+              - _default-logstash.priv.evertrue.com:5043
           files:
             - paths:
                 - /var/log/syslog
