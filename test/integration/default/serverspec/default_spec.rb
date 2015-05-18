@@ -1,9 +1,25 @@
 require 'spec_helper'
 
-describe 'elk_forwarder::default' do
+describe 'It installs logstash-forwarder' do
   # Serverspec examples can be found at
   # http://serverspec.org/resource_types.html
-  it 'does something' do
-    skip 'Replace this with meaningful tests'
+  describe file('/opt/logstash-forwarder/bin/logstash-forwarder') do
+    it { is_expected.to be_file }
+    it { is_expected.to be_executable }
+  end
+
+  describe file '/etc/logstash-forwarder/logstash-forwarder.conf' do
+    it { is_expected.to be_file }
+    its(:content) { is_expected.to include '"ssl ca":"/' }
+    its(:content) { is_expected.to include '/var/log/syslog' }
+  end
+
+  describe file '/var/log/logstash-forwarder/logstash-forwarder.log' do
+    it { is_expected.to be_file }
+  end
+
+  describe service('logstash-forwarder') do
+    it { is_expected.to be_running }
+    it { is_expected.to be_enabled }
   end
 end
