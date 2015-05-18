@@ -1,9 +1,6 @@
 actions :track, :untrack
+default_action :track
 
-attribute :file,           kind_of: String, name_attribute: true
+attribute :name,           kind_of: String, name_attribute: true
+attribute :paths,          kind_of: Array
 attribute :fields,         kind_of: Hash
-
-def initialize(*args)
-  super
-  @action = :track
-end
