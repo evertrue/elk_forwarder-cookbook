@@ -27,6 +27,6 @@ file "#{node['elk_forwarder']['config_dir']}/logstash-forwarder.conf" do
   user node['elk_forwarder']['user']
   group node['elk_forwarder']['group']
   mode '0640'
-  content node['elk_forwarder']['config'].to_json
+  content JSON.pretty_generate(node['elk_forwarder']['config'])
   notifies :restart, "service[#{node['elk_forwarder']['service_name']}]"
 end
