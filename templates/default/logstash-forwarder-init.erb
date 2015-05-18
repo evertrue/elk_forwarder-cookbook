@@ -17,7 +17,8 @@ PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DESC="logstash-forwarder log shipper"
 NAME=<%= node['elk_forwarder']['service_name'] %>
 DAEMON=<%= node['elk_forwarder']['install_dir'] %>/bin/logstash-forwarder
-DAEMON_ARGS="-config <%= node['elk_forwarder']['config_dir'] %>/logstash-forwarder.conf -spool-size 100 -log-to-syslog"
+LOGFILE=<%= node['elk_forwarder']['log_dir'] %>/logstash-forwarder.log
+DAEMON_ARGS="-config <%= node['elk_forwarder']['config_dir'] %>/logstash-forwarder.conf <%= node['elk_forwarder']['daemon_args'] %> > $LOGFILE 2>&1"
 PIDFILE=/var/run/$NAME.pid
 SCRIPTNAME=/etc/init.d/$NAME
 
