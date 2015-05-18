@@ -1,12 +1,13 @@
 name             'elk_forwarder'
 maintainer       'EverTrue, inc.'
 maintainer_email 'devops@evertrue.com'
-license          'all_rights'
-description      'Installs/Configures elk_forwarder'
-long_description 'Installs/Configures elk_forwarder'
+license          'apache2'
+description      'Installs logstash-forwarder for use in an ELK Cluster'
+long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '1.0.0'
 
 supports 'ubuntu', '>= 12.04'
 supports 'centos', '>= 7'
 
-depends 'golang'
+depends 'golang', '~> 1.5'
+depends 'logrotate', '~> 1.9'
