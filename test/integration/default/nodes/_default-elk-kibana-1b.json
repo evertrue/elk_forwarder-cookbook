@@ -1,0 +1,22 @@
+{
+  "name": "_default-elk-kibana-1b",
+  "chef_environment": "_default",
+  "run_list": [
+  ],
+  "automatic": {
+    "fqdn": "_default-elk-kibana-1b.priv.evertrue.com",
+    "ipaddress": "192.168.33.13",
+    "ec2": {
+      "hostname":"ip-192-168-33-13.priv.evertrue.com",
+      "local_hostname":"ip-192-168-33-13.priv.evertrue.com",
+      "local_ipv4":"192.168.33.13",
+      "placement_availability_zone":"us-east-1b",
+      "userdata":null
+    },
+    "recipes": [
+      "elk_kibana"
+    ],
+    "roles": [
+    ]
+  }
+}
