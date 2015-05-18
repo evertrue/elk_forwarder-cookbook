@@ -11,6 +11,12 @@ default['elk_forwarder']['service_name'] = 'logstash-forwarder'
 # Does not affect package installs so don't change if using packages
 default['elk_forwarder']['install_dir'] = '/opt/logstash-forwarder'
 
+# The Directory to Log the Logstash Forwarder Stuff to.
+default['elk_forwarder']['log_dir'] = '/var/log/logstash-forwarder'
+
+# Extra Args for the Logstash forwarder Daemon
+default['elk_forwarder']['daemon_args'] = '-spool-size 5'
+
 # A list of downstream servers listening for our messages.
 # logstash-forwarder will pick one at random and only switch if
 # the selected one appears to be dead or unresponsive

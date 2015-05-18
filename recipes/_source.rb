@@ -9,15 +9,15 @@
 include_recipe 'golang'
 
 # Enture that our install and build directories exist
-directory "#{node['elk_forwarder']['install_dir']}/bin" do
-  user node['elk_forwarder']['user']
-  group node['elk_forwarder']['group']
-  mode 0700
-  recursive true
-end
-
-directory node['elk_forwarder']['build_dir'] do
-  recursive true
+[node['elk_forwarder']['log_dir'],
+ node['elk_forwarder']['build_dir'],
+ "#{node['elk_forwarder']['install_dir']}/bin"].each do |dir|
+  directory dir do
+    user node['elk_forwarder']['user']
+    group node['elk_forwarder']['group']
+    mode 0755
+    recursive true
+  end
 end
 
 git node['elk_forwarder']['build_dir'] do
@@ -49,10 +49,20 @@ template "/etc/init.d/#{node['elk_forwarder']['service_name']}" do
   owner 'root'
   group 'root'
   mode 0755
+  notifies :restart, "service[#{node['elk_forwarder']['service_name']}]"
 end
 
 # Enable and start the service
 service node['elk_forwarder']['service_name'] do
   supports status: true, restart: true
   action [:enable, :start]
+end
+
+# Rotate the Logstash Forwarder Logs
+logrotate_app 'logstash-forwarder' do
+  cookbook 'logrotate'
+  path "#{node['elk_forwarder']['log_dir']}/logstash-forwarder.log"
+  frequency 'daily'
+  rotate 30
+  create '644 root adm'
 end
