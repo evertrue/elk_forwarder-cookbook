@@ -4,12 +4,51 @@ action :track do
     paths: new_resource.paths,
     fields: new_resource.fields
   }
-  before = node['elk_forwarder']['config']['files'].to_json
 
-  files = (node['elk_forwarder']['config']['files'] + [new_log]).uniq
+  # Grab the Array of files
+  files = node['elk_forwarder']['config']['files']
+
+  # Remove the file with the new_resource name if it exists (updating)
+  files = files.select do |file|
+    file['name'] != new_resource.name
+  end
+
+  files = (files << new_log).uniq
+
   node.set['elk_forwarder']['config']['files'] = files
 
-  if before != node['elk_forwarder']['config']['files'].to_json
-    new_resource.updated_by_last_action(true)
+  directory node['elk_forwarder']['config_dir'] do
+    recursive true
   end
+
+  f = file "#{node['elk_forwarder']['config_dir']}/logstash-forwarder.conf" do
+    user node['elk_forwarder']['user']
+    group node['elk_forwarder']['group']
+    mode '0640'
+    content JSON.pretty_generate(node['elk_forwarder']['config'])
+    notifies :restart, "service[#{node['elk_forwarder']['service_name']}]"
+  end
+
+  new_resource.updated_by_last_action(f.updated_by_last_action?)
+end
+
+action :untrack do
+  files = node['elk_forwarder']['config']['files']
+
+  # Remove the file with the new_resource name if it exists (updating)
+  files = files.select do |file|
+    file['name'] != new_resource.name
+  end
+
+  node.set['elk_forwarder']['config']['files'] = files
+
+  f = file "#{node['elk_forwarder']['config_dir']}/logstash-forwarder.conf" do
+    user node['elk_forwarder']['user']
+    group node['elk_forwarder']['group']
+    mode '0640'
+    content JSON.pretty_generate(node['elk_forwarder']['config'])
+    notifies :restart, "service[#{node['elk_forwarder']['service_name']}]"
+  end
+
+  new_resource.updated_by_last_action(f.updated_by_last_action?)
 end
