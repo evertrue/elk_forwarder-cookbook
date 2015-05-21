@@ -67,6 +67,8 @@ need to configure the SSL Certificates and Keys.  See the
 [Certificate Notes](https://github.com/elastic/logstash-forwarder#important-tlsssl-certificate-notes)
 on the logstash forwarder repo for help.
 
+However, with that said there is a `certs` recipe that you can use at your own risk to pull certs from a data bag.
+
 You can tweak the Certificate locations in the `[elk_forwarder]['config']['network']['ssl *']` attributes
 
 ## Contributing
