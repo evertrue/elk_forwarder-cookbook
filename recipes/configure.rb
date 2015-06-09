@@ -14,6 +14,7 @@ ruby_block 'Verify that the ssl files exist' do
     end
   end
   action :run
+  not_if { node['elk_forwarder']['mocking'] }
 end
 
 directory node['elk_forwarder']['config_dir'] do
