@@ -58,4 +58,4 @@ default['elk_forwarder']['config']['network']['timeout'] = 15
 #   # A dictionary of fields to annotate on each event.
 #   "fields": { "type": "syslog" }
 # },
-default['elk_forwarder']['config']['files'] = []
+default['elk_forwarder']['config']['files'] = {}
