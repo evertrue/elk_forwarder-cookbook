@@ -7,16 +7,6 @@
 require 'spec_helper'
 
 describe 'elk_forwarder::default' do
-  context 'When all attributes are default, on an unspecified platform' do
-    let(:chef_run) do
-      runner = ChefSpec::ServerRunner.new
-      runner.converge(described_recipe)
-    end
-    it 'it raises an error with default attributes' do
-      stub_command("/usr/local/go/bin/go version | grep \"go1.3 \"").and_return(true)
-      expect { chef_run }.to raise_error
-    end
-  end
   context 'When Certificate Attributes are set, on an unspecified platform' do
     let(:chef_run) do
       runner = ChefSpec::ServerRunner.new do |node|
@@ -26,8 +16,8 @@ describe 'elk_forwarder::default' do
       end
       runner.converge(described_recipe)
     end
-    it 'it raises an error with default attributes' do
-      stub_command("/usr/local/go/bin/go version | grep \"go1.3 \"").and_return(true)
+    it 'it converges successfully when attributes are set' do
+      stub_command("/usr/local/go/bin/go version | grep \"go1.4 \"").and_return(true)
       chef_run
     end
   end

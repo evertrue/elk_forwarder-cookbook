@@ -7,6 +7,8 @@
 ruby_block 'Verify that the ssl files exist' do
   block do
     %w(ca cert key).each do |c|
+      next if node['elk_forwarder']['mocking']
+
       file = node['elk_forwarder']['config']['network']["ssl #{c}"]
       if file && !File.exist?(file)
         fail "The ssl #{c} file is configured but does not exist: #{file}"
