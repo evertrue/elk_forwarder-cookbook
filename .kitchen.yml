@@ -29,7 +29,8 @@ suites:
             servers:
               - _default-logstash.priv.evertrue.com:5043
           files:
-            - paths:
+            syslog:
+              paths:
                 - /var/log/syslog
-            - fields:
+              fields:
                 type: syslog
