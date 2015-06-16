@@ -24,10 +24,16 @@ directory node['elk_forwarder']['config_dir'] do
   action :create
 end
 
-file "#{node['elk_forwarder']['config_dir']}/logstash-forwarder.conf" do
+# Generate the config file using the config attribute
+template 'Logstash Forwarder Base Configuration' do
+  cookbook 'elk_forwarder'
+  path "#{node['elk_forwarder']['config_dir']}/logstash-forwarder.conf"
+  source 'logstash-forwarder.conf.erb'
   user node['elk_forwarder']['user']
   group node['elk_forwarder']['group']
   mode '0640'
-  content JSON.pretty_generate(node['elk_forwarder']['config'])
+  variables(
+    config: JSON.parse(node['elk_forwarder']['config'].to_json)
+  )
   notifies :restart, "service[#{node['elk_forwarder']['service_name']}]"
 end

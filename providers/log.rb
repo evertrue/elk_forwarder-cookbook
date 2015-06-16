@@ -21,15 +21,20 @@ action :track do
     recursive true
   end
 
-  f = file "#{node['elk_forwarder']['config_dir']}/logstash-forwarder.conf" do
+  t = template "Logstash Forwarder Adding '#{new_log[:name]}' Configuration" do
+    path "#{node['elk_forwarder']['config_dir']}/logstash-forwarder.conf"
+    cookbook 'elk_forwarder'
+    source 'logstash-forwarder.conf.erb'
     user node['elk_forwarder']['user']
     group node['elk_forwarder']['group']
     mode '0640'
-    content JSON.pretty_generate(node['elk_forwarder']['config'])
+    variables(
+      config: JSON.parse(node['elk_forwarder']['config'].to_json)
+    )
     notifies :restart, "service[#{node['elk_forwarder']['service_name']}]"
   end
 
-  new_resource.updated_by_last_action(f.updated_by_last_action?)
+  new_resource.updated_by_last_action(t.updated_by_last_action?)
 end
 
 action :untrack do
