@@ -19,7 +19,6 @@ suites:
       - recipe[elk_forwarder::default]
     attributes:
       elk_forwarder:
-        mocking: true
         certs:
           ca_data_bag: certificates
           ca_data_bag_item: logstash
