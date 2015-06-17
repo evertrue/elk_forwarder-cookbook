@@ -7,8 +7,8 @@
 # ca, cert, and keys.
 
 %w(ca key certificate).each do |c|
-  if (!node['elk_forwarder']['certs'] ||
-     !node['elk_forwarder']['certs']["#{c}_data_bag"]) ||
+  if !node['elk_forwarder']['certs'] ||
+     !node['elk_forwarder']['certs']["#{c}_data_bag"] ||
      node['elk_forwarder']['mocking']
     node.rm('elk_forwarder', 'config', 'network', "ssl #{c}")
     next
