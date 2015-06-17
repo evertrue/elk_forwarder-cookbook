@@ -9,6 +9,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [2.0.0] - 2015-06-16
+### Changed
+- Breaking: All Configuration to just be through attributes, no LWRP unfortunately
+- Breaking: The `['config']['files']` attribute has been changed from an array to a hash
+- Added a mocking mode for running tests
+
+### Removed
+- The `logstash_forwarder_log` LWRP as it was causing problematic race conditions
 
 ## [1.0.0] - 2015-04-27
 ### Added
