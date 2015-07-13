@@ -174,8 +174,8 @@ Or from your recipe. This one loops through a list of apps
 ```ruby
 apps.each do |app|
   node.set['elk_forwarder']['config']['files']['myapp']['paths'] = ["/var/log/#{app}.log"]
-  node.set['elk_forwarder']['config']['files']['myapp']['fields']['type'] = app
-  node.set['elk_forwarder']['config']['files']['myapp']['fields']['foo'] = 'bar'
+  node.set['elk_forwarder']['config']['files']['myapp']['fields']['type'] = 'rails_app'
+  node.set['elk_forwarder']['config']['files']['myapp']['fields']['app'] = app
 end
 ```
 
