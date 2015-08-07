@@ -11,7 +11,13 @@ certs = data_bag_item(
   node['elk_forwarder']['cert_data_bag_item']
 )['data']
 
-%w(ca key certificate).each do |c|
+ssl_files_to_process = %w(ca)
+
+if ['elk_forwarder']['config']['network']['ssl certificate']
+  ssl_files_to_process += %w(certificate key)
+end
+
+ssl_files_to_process.each do |c|
   directory File.dirname(node['elk_forwarder']['config']['network']["ssl #{c}"]) do
     recursive true
   end

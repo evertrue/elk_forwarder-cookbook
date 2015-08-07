@@ -22,14 +22,6 @@ default['elk_forwarder']['daemon_args'] = '-spool-size 5'
 # the selected one appears to be dead or unresponsive
 default['elk_forwarder']['config']['network']['servers'] = []
 
-# The path to your client ssl certificate (optional)
-default['elk_forwarder']['config']['network']['ssl certificate'] =
-  '/etc/pki/tls/certs/logstash-forwarder/cert.pem'
-
-# The path to your client ssl key (optional)
-default['elk_forwarder']['config']['network']['ssl key'] =
-  '/etc/pki/tls/private/logstash-forwarder/key.pem'
-
 # The path to your trusted ssl CA file. This is used
 # to authenticate your downstream server.
 default['elk_forwarder']['config']['network']['ssl ca'] =
