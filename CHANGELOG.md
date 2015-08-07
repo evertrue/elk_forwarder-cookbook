@@ -9,6 +9,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [3.0.0] - 2015-08-07
+### Changed
+- Massive refactoring (much of attribute names changed)
+- Change test environment name from `_default` to `dev`
+- Stop testing on Ubuntu 12.04 
+
 ## [2.0.0] - 2015-06-16
 ### Changed
 - Breaking: All Configuration to just be through attributes, no LWRP unfortunately
