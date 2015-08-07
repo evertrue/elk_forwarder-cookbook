@@ -9,6 +9,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [3.0.1] - 2015-08-07
+### Fixed
+- Fix certificate miscommunication
+
 ## [3.0.0] - 2015-08-07
 ### Changed
 - Massive refactoring (much of attribute names changed)
