@@ -1,10 +1,10 @@
 {
-  "name": "_default-elk-elasticsearch-1b",
-  "chef_environment": "_default",
+  "name": "dev-elk-elasticsearch-1b",
+  "chef_environment": "dev",
   "run_list": [
   ],
   "automatic": {
-    "fqdn": "_default-elk-elasticsearch-1b.priv.evertrue.com",
+    "fqdn": "dev-elk-elasticsearch-1b.priv.evertrue.com",
     "ipaddress": "192.168.33.12",
     "ec2": {
       "hostname":"ip-192-168-33-12.priv.evertrue.com",

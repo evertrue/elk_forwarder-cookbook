@@ -1,10 +1,10 @@
 {
-  "name": "_default-elk-kibana-1b",
-  "chef_environment": "_default",
+  "name": "dev-elk-kibana-1b",
+  "chef_environment": "dev",
   "run_list": [
   ],
   "automatic": {
-    "fqdn": "_default-elk-kibana-1b.priv.evertrue.com",
+    "fqdn": "dev-elk-kibana-1b.priv.evertrue.com",
     "ipaddress": "192.168.33.13",
     "ec2": {
       "hostname":"ip-192-168-33-13.priv.evertrue.com",
