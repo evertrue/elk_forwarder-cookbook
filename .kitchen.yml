@@ -18,10 +18,6 @@ suites:
       - recipe[elk_forwarder::default]
     attributes:
       elk_forwarder:
-        certs:
-          ca_data_bag: certificates
-          ca_data_bag_item: logstash
-          ca_data_bag_item_key: ca certificate
         config:
           network:
             servers:
