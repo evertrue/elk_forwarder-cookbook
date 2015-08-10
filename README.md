@@ -28,10 +28,10 @@ You can also find comments in [attributes/default.rb](https://github.com/evertru
 The `node['elk_forwarder']['config']` hash closely mimics the logstash forwarder config file format, with the only difference of the `files` key contains a hash instead of an array
 
 The following table is namespaced under `node['elk_forwarder']['config']` so prepend `node['elk_forwarder']['config']` to the key column
+
 | Key                                | Type   | Description                                             | Default                                        |
 |------------------------------------|--------|---------------------------------------------------------|------------------------------------------------|
 | ['network']['servers']             | Array  | An array of logstash agent address:port values          | []                                             |
-| ['network']['ssl certificate']     | String | The path to find the SSL Certificate                    | /etc/pki/tls/certs/logstash-forwarder/cert.pem |
 | ['network']['ssl certificate']     | String | The path to find the SSL Certificate                    | /etc/pki/tls/certs/logstash-forwarder/cert.pem |
 | ['network']['ssl key']             | String | The path to find the SSL Private Key                    | /etc/pki/tls/certs/logstash-forwarder/key.pem  |
 | ['network']['ssl ca']              | String | The path to find the SSL CA Certificate                 | /etc/pki/tls/certs/logstash-forwarder/ca.pem   |
@@ -121,8 +121,7 @@ Configures the forwarder with the `['elk_forwarder']['config']` hash
 
 ## certs
 
-Installs SSL Certs and Keys from data bags to the paths specified in the configuration
-from:
+Installs SSL Certs and Keys from data bags to the paths specified in these atts:
 
 * `node['elk_forwarder']['network']['ssl ca']`
 * `node['elk_forwarder']['network']['ssl certificate']`
@@ -131,20 +130,21 @@ from:
 The following attributes are used to determine the location of the certs/keys
 
 ```ruby
-# The Server's CA Certificate. This cert is required
-set['elk_forwarder']['certs']['ca_data_bag'] = 'certificates'
-set['elk_forwarder']['certs']['ca_data_bag_item'] = 'logstash'
-set['elk_forwarder']['certs']['ca_data_bag_item_key'] = 'ca certificate'
+default['elk_forwarder']['cert_data_bag']      = 'certificates'
+default['elk_forwarder']['cert_data_bag_item'] = 'logstash'
+```
 
-# The Client Certificate (optional)
-set['elk_forwarder']['certs']['certificate_data_bag'] = 'certificates'
-set['elk_forwarder']['certs']['certificate_data_bag_item'] = 'logstash'
-set['elk_forwarder']['certs']['certificate_data_bag_item_key'] = 'ca certificate'
+The data bag you specify is expected to be in the following format:
 
-# The Client key (optional)
-set['elk_forwarder']['certs']['key_data_bag'] = 'certificates'
-set['elk_forwarder']['certs']['key_data_bag_item'] = 'logstash'
-set['elk_forwarder']['certs']['key_data_bag_item_key'] = 'ca certificate'
+```json
+{
+  "id": "elk_forwarder",
+  "data": {
+    "ca": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----",
+    "certificate": "-----BEGIN CERTIFICATE-----\n...\n-----END CERTIFICATE-----\n",
+    "key": "-----BEGIN RSA PRIVATE KEY-----\n...\n-----END RSA PRIVATE KEY-----\n"
+  }
+}
 ```
 
 # Usage
@@ -165,14 +165,18 @@ include_recipe 'elk_forwarder::default'
 
 ### Certificates
 
-Generating and distributing SSL Certificates is out of scope for this cookbook. Your wrapper cookbook will
-need to configure the SSL Certificates and Keys.  See the
+Generating and distributing SSL Certificates is out of scope for this cookbook
+unless you want to try out the certs recipe which just distributes certs from a
+data bag. If you want to take care of certs yourself then your wrapper cookbook
+will need to configure the SSL Certificates and Keys.  See the
 [Certificate Notes](https://github.com/elastic/logstash-forwarder#important-tlsssl-certificate-notes)
 on the logstash forwarder repo for help.
 
-However, with that said there is a `certs` recipe that you can use at your own risk to pull certs from a data bag.
+Remember to set these attributes to the filenames where you store the certs:
 
-You can tweak the Certificate locations in the `[elk_forwarder]['config']['network']['ssl *']` attributes
+* `node['elk_forwarder']['network']['ssl ca']`
+* `node['elk_forwarder']['network']['ssl certificate']` (optional)
+* `node['elk_forwarder']['network']['ssl key']` (optional)
 
 ## Contributing
 
