@@ -12,112 +12,34 @@ You can also find comments in [attributes/default.rb](https://github.com/evertru
 
 ## General Attributes
 
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['elk_forwarder']['install_type']</tt></td>
-    <td>String</td>
-    <td>source or package</td>
-    <td><tt>package</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['elk_forwarder']['config_dir']</tt></td>
-    <td>String</td>
-    <td>Where to put config</td>
-    <td><tt>/etc/logstash-forwarder</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['elk_forwarder']['service_name']</tt></td>
-    <td>String</td>
-    <td>The Service Name</td>
-    <td><tt>logstash-forwarder</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['elk_forwarder']['log_dir']</tt></td>
-    <td>String</td>
-    <td>Directory to log to</td>
-    <td><tt>/var/log/logstash-forwarder</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['elk_forwarder']['install_dir']</tt></td>
-    <td>String</td>
-    <td>Directory to install to</td>
-    <td><tt>/opt/logstash-forwarder</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['elk_forwarder']['daemon_args']</tt></td>
-    <td>String</td>
-    <td>Extra args for the forwarder</td>
-    <td><tt>-spool-size 5</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['elk_forwarder']['syslog']['facility']</tt></td>
-    <td>String</td>
-    <td>The Syslog facility.</td>
-    <td><tt>local0</tt></td>
-  </tr>
-</table>
+| Key                                       | Type   | Description                  | Default                     |
+|-------------------------------------------|--------|------------------------------|-----------------------------|
+| `['elk_forwarder']['install_type']`       | String | source or package            | package                     |
+| `['elk_forwarder']['config_dir']`         | String | Where to put config          | /etc/logstash-forwarder     |
+| `['elk_forwarder']['service_name']`       | String | The Service Name             | logstash-forwarder          |
+| `['elk_forwarder']['log_dir']`            | String | Directory to log to          | /var/log/logstash-forwarder |
+| `['elk_forwarder']['install_dir']`        | String | Directory to install to      | /opt/logstash-forwarder     |
+| `['elk_forwarder']['daemon_args']`        | String | Extra args for the forwarder | -spool-size 5               |
+| `['elk_forwarder']['syslog']['facility']` | String | The Syslog facility.         | local0                      |
+
 
 ## Config File Attributes
 
 The `node['elk_forwarder']['config']` hash closely mimics the logstash forwarder config file format, with the only difference of the `files` key contains a hash instead of an array
 
 The following table is namespaced under `node['elk_forwarder']['config']` so prepend `node['elk_forwarder']['config']` to the key column
-<table>
-  <tr>
-    <td><tt>['network']['servers']</tt></td>
-    <td>Array</td>
-    <td>An array of logstash agent address:port values</td>
-    <td><tt>[]</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['network']['ssl certificate']</tt></td>
-    <td>String</td>
-    <td>The path to find the SSL Certificate</td>
-    <td>/etc/pki/tls/certs/logstash-forwarder/cert.pem</td>
-  </tr>
-  <tr>
-    <td><tt>['network']['ssl certificate']</tt></td>
-    <td>String</td>
-    <td>The path to find the SSL Certificate</td>
-    <td>/etc/pki/tls/certs/logstash-forwarder/cert.pem</td>
-  </tr>
-  <tr>
-    <td><tt>['network']['ssl key']</tt></td>
-    <td>String</td>
-    <td>The path to find the SSL Private Key</td>
-    <td>/etc/pki/tls/certs/logstash-forwarder/key.pem</td>
-  </tr>
-  <tr>
-    <td><tt>['network']['ssl ca']</tt></td>
-    <td>String</td>
-    <td>The path to find the SSL CA Certificate</td>
-    <td>/etc/pki/tls/certs/logstash-forwarder/ca.pem</td>
-  </tr>
-  <tr>
-    <td><tt>['network']['timeout']</tt></td>
-    <td>String</td>
-    <td>Seconds to wait before connecting to next server</td>
-    <td>15</td>
-  </tr>
-  <tr>
-    <td><tt>['haproxy']['defaults']['maxconn']</tt></td>
-    <td>String (well, a number in quotes, really)</td>
-    <td>The DEFAULT maximum number of concurrent connections the frontend will accept to serve. Excess connections will be queued by the system in the socket's listen queue and will be served once a connection closes.  (See: http://code.google.com/p/haproxy-docs/wiki/maxconn)</td>
-    <td><tt>60000</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['files']</tt></td>
-    <td>Hash</td>
-    <td>The List of files to track and associated fields to add</td>
-    <td>{}</td>
-  </tr>
-</table>
+| Key                                | Type   | Description                                             | Default                                        |
+|------------------------------------|--------|---------------------------------------------------------|------------------------------------------------|
+| ['network']['servers']             | Array  | An array of logstash agent address:port values          | []                                             |
+| ['network']['ssl certificate']     | String | The path to find the SSL Certificate                    | /etc/pki/tls/certs/logstash-forwarder/cert.pem |
+| ['network']['ssl certificate']     | String | The path to find the SSL Certificate                    | /etc/pki/tls/certs/logstash-forwarder/cert.pem |
+| ['network']['ssl key']             | String | The path to find the SSL Private Key                    | /etc/pki/tls/certs/logstash-forwarder/key.pem  |
+| ['network']['ssl ca']              | String | The path to find the SSL CA Certificate                 | /etc/pki/tls/certs/logstash-forwarder/ca.pem   |
+| ['network']['timeout']             | String | Seconds to wait before connecting to next server        | 15                                             |
+| ['files']                          | Hash   | The List of files to track and associated fields to add | {}                                             |
+
+The `node['elk_forwarder']['config']['files']` hash is probably the most useful,
+check out the Usage section for instructions on how to configure files to forward
 
 # Usage
 
