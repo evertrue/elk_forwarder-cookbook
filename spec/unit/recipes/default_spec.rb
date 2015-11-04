@@ -17,7 +17,7 @@ describe 'elk_forwarder::default' do
       runner.converge(described_recipe)
     end
     it 'it converges successfully when attributes are set' do
-      stub_command("/usr/local/go/bin/go version | grep \"go1.4 \"").and_return(true)
+      stub_command("/usr/local/go/bin/go version | grep \"go1.5 \"").and_return(true)
       chef_run
     end
   end
