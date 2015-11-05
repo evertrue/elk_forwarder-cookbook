@@ -9,6 +9,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [3.0.2] - 2015-11-05
+### Fixed
+- Build path to be in file_cache_path
+
 ## [3.0.1] - 2015-08-07
 ### Fixed
 - Fix certificate miscommunication
