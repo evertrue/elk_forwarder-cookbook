@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'berkshelf', '~> 3.2'
+gem 'berkshelf', '~> 4.0'
 
 group :unit do
   gem 'foodcritic', '~> 4.0'
