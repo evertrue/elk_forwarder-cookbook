@@ -11,20 +11,28 @@ certs = data_bag_item(
   node['elk_forwarder']['cert_data_bag_item']
 )['data']
 
-ssl_files_to_process = %w(ca)
-
-if ['elk_forwarder']['config']['network']['ssl certificate']
-  ssl_files_to_process += %w(certificate key)
+directory '/etc/pki/tls/certs/logstash-forwarder' do
+  recursive true
 end
 
-ssl_files_to_process.each do |c|
-  directory File.dirname(node['elk_forwarder']['config']['network']["ssl #{c}"]) do
-    recursive true
-  end
+ca_cert = '/etc/pki/tls/certs/logstash-forwarder/ca.pem'
 
-  file node['elk_forwarder']['config']['network']["ssl #{c}"] do
-    content certs[c]
-    mode '600'
+if node['elk_forwarder']['generate_cert']
+  openssl_x509 ca_cert do
+    common_name node['fqdn']
+    org node['elk_forwarder']['ca_cert']['self_signed']['org']
+    org_unit node['elk_forwarder']['ca_cert']['self_signed']['org_unit']
+    country node['elk_forwarder']['ca_cert']['self_signed']['country']
+    expire 30
+    if node['elk_forwarder']['ca_cert']['self_signed']['signing_key']
+      key_file node['elk_forwarder']['ca_cert']['self_signed']['signing_key']
+    end
+    notifies :restart, 'service[logstash-forwarder]'
+  end
+else
+  file ca_cert do
+    content "#{certs['ca']}\n"
+    mode 0644
     notifies :restart, 'service[logstash-forwarder]'
   end
 end
