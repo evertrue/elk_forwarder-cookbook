@@ -7,7 +7,7 @@
 directory node['elk_forwarder']['config_dir'] do
   user node['elk_forwarder']['user']
   group node['elk_forwarder']['group']
-  mode '0755'
+  mode 0755
   action :create
 end
 
@@ -15,7 +15,7 @@ end
 file "#{node['elk_forwarder']['config_dir']}/logstash-forwarder.conf" do
   user node['elk_forwarder']['user']
   group node['elk_forwarder']['group']
-  mode '0640'
+  mode 0640
   content(
     lazy do
       JSON.pretty_generate(
