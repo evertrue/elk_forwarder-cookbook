@@ -30,3 +30,5 @@ file "#{node['elk_forwarder']['config_dir']}/logstash-forwarder.conf" do
   )
   notifies :restart, "service[#{node['elk_forwarder']['service_name']}]"
 end
+
+include_recipe 'elk_forwarder::certs'
