@@ -9,6 +9,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [4.0.0] - 2015-12-23
+### Fixed
+- Remove key and certificate code (now in `evertrue/logserver-cookbook`) and just install the CA cert
+- Install `elk_forwarder::certs` as part of `configure`
+
 ## [3.0.2] - 2015-11-05
 ### Fixed
 - Build path to be in file_cache_path
