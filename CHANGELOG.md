@@ -9,6 +9,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Removed
 
+## [3.0.3] - 2016-01-19
+### Fixed
+- HOTFIX: Add absolutely essential word (node) to the beginning of a hash
+
 ## [3.0.2] - 2015-11-05
 ### Fixed
 - Build path to be in file_cache_path
