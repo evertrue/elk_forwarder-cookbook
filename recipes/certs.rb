@@ -13,7 +13,7 @@ certs = data_bag_item(
 
 ssl_files_to_process = %w(ca)
 
-if ['elk_forwarder']['config']['network']['ssl certificate']
+if node['elk_forwarder']['config']['network']['ssl certificate']
   ssl_files_to_process += %w(certificate key)
 end
 
